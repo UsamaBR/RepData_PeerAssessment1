@@ -1,8 +1,8 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
 output: 
-  html_document:
-    keep_md: true
+  html_document: 
+    keep_md: yes
 ---
 
 
@@ -62,7 +62,7 @@ ggplot(data = steps_per_day,
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](PA1_template_files/figure-html/histogramNumStepsPerDay-1.png)<!-- -->
 
 Finally, we calculate the mean and median, and report it in the data frame.
 
@@ -115,7 +115,7 @@ ggplot(data = steps_per_interval,
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](PA1_template_files/figure-html/timeSeriesPlot-1.png)<!-- -->
 
 For the interval during which the highest number of average steps are taken, the following code snipped calculates that:
 
@@ -197,7 +197,7 @@ ggplot(data = steps_per_day_new,
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+![](PA1_template_files/figure-html/stepsPerDay2-1.png)<!-- -->
 Finally, we calculate the mean and median, and report it in the data frame.
 
 
@@ -263,6 +263,6 @@ xyplot(steps ~ interval | day, data = steps_per_interval_new,
        type = "l", layout = c(1, 2))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
+![](PA1_template_files/figure-html/PlottingComparison-1.png)<!-- -->
 
 From the activity compartison, difference can be seen in the activites during weekdays and weekends.

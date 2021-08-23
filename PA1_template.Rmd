@@ -1,17 +1,17 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
 output: 
-  html_document:
-    keep_md: true
+  html_document: 
+    keep_md: yes
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-	echo = TRUE,
-	message = FALSE,
-	warning = FALSE,
-	results = TRUE,
-	cache = TRUE
+    echo = TRUE,
+    message = FALSE,
+    warning = FALSE,
+    results = TRUE,
+    cache = TRUE
 )
 ```
 
@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 First, we load the required libraries for the task.
 
-```{r}
+```{r loadLibraries}
 
 library(tidyverse)
 library(ggplot2)
@@ -29,7 +29,7 @@ library(ggplot2)
 
 Next, we load and preprocess the data.
 
-```{r}
+```{r loadData}
 
 activity_data <- read.csv("activity.csv")
 head(activity_data)
@@ -40,7 +40,7 @@ head(activity_data)
 
 For the total steps taken, we first group our data by summing the total number of steps and grouping by each day.
 
-```{r}
+```{r summaryStepsPerDay}
 
 steps_per_day <- activity_data %>% 
   drop_na(steps) %>% 
@@ -52,7 +52,7 @@ steps_per_day <- activity_data %>%
 
 Next, we plot the histogram for the no. of steps.
 
-```{r}
+```{r histogramNumStepsPerDay}
 
 ggplot(data = steps_per_day, 
        mapping = aes(x = steps)) +
@@ -67,7 +67,7 @@ ggplot(data = steps_per_day,
 
 Finally, we calculate the mean and median, and report it in the data frame.
 
-```{r}
+```{r meanMedianSteps}
 
 mean_steps <- mean(steps_per_day$steps)
 median_steps <- median(steps_per_day$steps)
@@ -80,7 +80,7 @@ data.frame(mean_steps, median_steps)
 
 First, we take the mean of the no. of steps taken during each interval and store it in a variablel.
 
-```{r}
+```{r stepsPerInterval}
 
 steps_per_interval <- activity_data %>% 
   drop_na(steps) %>% 
@@ -92,7 +92,7 @@ steps_per_interval <- activity_data %>%
 
 Next, we plot the time series plot for daily activity pattern.
 
-```{r}
+```{r timeSeriesPlot}
 
 ggplot(data = steps_per_interval,
        mapping = aes(x = interval, y = steps)) +
@@ -116,7 +116,7 @@ ggplot(data = steps_per_interval,
 
 For the interval during which the highest number of average steps are taken, the following code snipped calculates that:
 
-```{r}
+```{r maxInterval}
 
 max_interval <- as.numeric(steps_per_interval %>% 
                            filter(steps == max(steps)) %>% 
@@ -131,7 +131,7 @@ Which translates to 08:35 to 08:40.
 
 To calculate the total number of missing values:
 
-```{r}
+```{r missingVals}
 
 miss_vals <- sum(is.na(activity_data))
 miss_vals
@@ -139,7 +139,7 @@ miss_vals
 ```
 To compensate for the missing values, we substitute the values for the mean we found during the specific interval.
 
-```{r}
+```{r ImputingVals}
 
 new_data <- merge(activity_data, 
                   steps_per_interval, 
@@ -154,7 +154,7 @@ new_data <- merge(activity_data,
 
 After imputing the data set, the new dataset is shown below:
 
-```{r}
+```{r displayNew}
 
 head(new_data)
 
@@ -162,7 +162,7 @@ head(new_data)
 
 Now we create the histrogram of the new dataset. For histogram, we first create a new variable which contains the summarised data.
 
-```{r}
+```{r stepsPerDay2}
 
 steps_per_day_new <- new_data %>%
   select(date, steps) %>% 
@@ -182,7 +182,7 @@ ggplot(data = steps_per_day_new,
 ```
 Finally, we calculate the mean and median, and report it in the data frame.
 
-```{r}
+```{r meanStepsNew}
 
 mean_steps_new <- mean(steps_per_day_new$steps)
 median_steps_new <- median(steps_per_day_new$steps)
@@ -200,7 +200,7 @@ From the updated data, we see that there is no difference in mean, because essen
 
 To look for difference in activity patterns, we first modify our data set to indicate whether the date falls on the weekday or weekend
 
-```{r}
+```{r transformingData}
 
 days <- with(new_data, weekdays(as.Date(date)))
 days_weekend <- c("Saturday", "Sunday")
@@ -215,7 +215,7 @@ head(activity_days)
 
 Next, we summarise our data for the means.
 
-```{r}
+```{r summariseNewData}
 
 steps_per_interval_new <- activity_days %>%  
   select(interval, steps, day) %>% 
@@ -226,7 +226,7 @@ steps_per_interval_new <- activity_days %>%
 
 Now, we plot our data using the lattice library.
 
-```{r}
+```{r PlottingComparison}
 
 library(lattice)
 xyplot(steps ~ interval | day, data = steps_per_interval_new, 

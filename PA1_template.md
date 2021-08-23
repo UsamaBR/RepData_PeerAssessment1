@@ -6,6 +6,15 @@ output:
 ---
 
 
+```r
+knitr::opts_chunk$set(
+    echo = TRUE,
+    message = FALSE,
+    warning = FALSE,
+    results = TRUE,
+    cache = TRUE
+)
+```
 
 ## Loading and preprocessing the data
 
